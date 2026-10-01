@@ -6,6 +6,8 @@
 #include "Abilities/GameplayAbility.h"
 #include "GameplayAbility_Fireball.generated.h"
 
+class AFireballProjectile;
+
 UCLASS()
 class UNREAL10TH_FIREBALL_API UGameplayAbility_Fireball : public UGameplayAbility
 {
@@ -24,5 +26,15 @@ public:
         const FGameplayAbilitySpecHandle Handle,
         const FGameplayAbilityActorInfo* ActorInfo,
         OUT FGameplayTagContainer* OptionalRelevantTags = nullptr) const override;
+
+protected:
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Fireball")
+    TSubclassOf<AFireballProjectile> FireballProjectileClass;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Fireball")
+    TSubclassOf<UGameplayEffect> FireballDamageEffectClass;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Fireball")
+    TSubclassOf<UGameplayEffect> FireballBurnEffectClass;
 
 };

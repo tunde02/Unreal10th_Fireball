@@ -3,6 +3,7 @@
 
 #include "GAS/Ability/GameplayAbility_Fireball.h"
 #include "GAS/AttributeSet/PlayerAttributeSet.h"
+#include "Projectile/FireballProjectile.h"
 
 #include "GameplayEffect.h"
 #include "GameFramework/Character.h"
@@ -32,10 +33,25 @@ void UGameplayAbility_Fireball::ActivateAbility(
         return;
     }
 
-    const float CurrentLevel = GetAbilityLevel(Handle, ActorInfo);
+    // 대미지, 화상 EffectSpec 생성
+    FGameplayEffectSpecHandle DamageSpec = MakeOutgoingGameplayEffectSpec(FireballDamageEffectClass, GetAbilityLevel(Handle, ActorInfo));
+    FGameplayEffectSpecHandle BurnSpec = MakeOutgoingGameplayEffectSpec(FireballBurnEffectClass, GetAbilityLevel(Handle, ActorInfo));
 
-    // TODO:
-    UE_LOG(LogTemp, Log, TEXT("[UGameplayAbility_Fireball::ActivateAbility()] : Hello Fireball Ability"));
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.Owner = Character;
+    SpawnParams.Instigator = Character;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+    // 파이어볼 투사체 스폰
+    AFireballProjectile* Projectile = GetWorld()->SpawnActor<AFireballProjectile>(
+        FireballProjectileClass,
+        Character->GetMesh()->GetSocketLocation(FName("FireballSocket")),
+        Character->GetActorRotation(),
+        SpawnParams
+    );
+
+    // 파이어볼 투사체에 SourceASC, 대미지 EffectSpec, 화상 EffectSpec 전달
+    Projectile->InitializeFireballProjectile(ActorInfo->AbilitySystemComponent.Get(), DamageSpec, BurnSpec);
 
     EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
 }
