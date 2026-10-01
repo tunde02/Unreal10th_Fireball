@@ -8,7 +8,19 @@ public class Unreal10th_Fireball : ModuleRules
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "GameplayAbilities", "GameplayTags", "GameplayTasks" });
+        PublicDependencyModuleNames.AddRange(new string[] {
+            "Core",
+            "CoreUObject",
+            "Engine",
+            "InputCore",
+            "EnhancedInput",
+            "UMG",
+            "Slate",
+            "SlateCore",
+            "Niagara",
+            "GameplayAbilities",
+            "GameplayTags",
+            "GameplayTasks" });
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
 
