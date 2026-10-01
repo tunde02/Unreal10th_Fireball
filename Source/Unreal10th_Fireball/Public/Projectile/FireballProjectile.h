@@ -40,9 +40,6 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VFX")
     TObjectPtr<UNiagaraSystem> HitVFX;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "VFX")
-    float Damage = 10.0f;
-
 private:
     TWeakObjectPtr<UAbilitySystemComponent> SourceASC;
     FGameplayEffectSpecHandle DamageSpec;

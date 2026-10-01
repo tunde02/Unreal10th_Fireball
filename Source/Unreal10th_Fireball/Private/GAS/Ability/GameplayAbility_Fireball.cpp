@@ -33,9 +33,21 @@ void UGameplayAbility_Fireball::ActivateAbility(
         return;
     }
 
-    // 대미지, 화상 EffectSpec 생성
+    // 대미지 EffectSpec 생성
     FGameplayEffectSpecHandle DamageSpec = MakeOutgoingGameplayEffectSpec(FireballDamageEffectClass, GetAbilityLevel(Handle, ActorInfo));
+    if (DamageSpec.IsValid())
+    {
+        // SetByCaller로 파이어볼 피격 대미지 설정
+        DamageSpec.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(TEXT("GAS.Data.Damage")), FireballDamage);
+    }
+
+    // 화상 EffectSpec 생성
     FGameplayEffectSpecHandle BurnSpec = MakeOutgoingGameplayEffectSpec(FireballBurnEffectClass, GetAbilityLevel(Handle, ActorInfo));
+    if (BurnSpec.IsValid())
+    {
+        // SetByCaller로 화상 대미지 설정
+        BurnSpec.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(TEXT("GAS.Data.Damage")), BurnDamage);
+    }
 
     FActorSpawnParameters SpawnParams;
     SpawnParams.Owner = Character;

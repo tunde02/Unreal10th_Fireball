@@ -37,4 +37,10 @@ protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Fireball")
     TSubclassOf<UGameplayEffect> FireballBurnEffectClass;
 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Fireball")
+    float FireballDamage = 10.0f;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GAS|Fireball")
+    float BurnDamage = 1.0f;
+
 };
