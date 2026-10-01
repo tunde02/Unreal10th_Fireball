@@ -43,6 +43,8 @@ void AGASPlayerCharacter::BeginPlay()
             Subsystem->AddMappingContext(IMC_Fireball, 0);
         }
     }
+
+    GiveFireballAbility();
 }
 
 void AGASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -58,7 +60,37 @@ void AGASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
     }
 }
 
+void AGASPlayerCharacter::GiveFireballAbility()
+{
+    if (!ASC)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[AGASPlayerCharacter::GiveFireballAbility()] : ASC가 nullptr입니다."));
+        return;
+    }
+
+    if (!ASC->AbilityActorInfo.IsValid())
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[AGASPlayerCharacter::GiveFireballAbility()] : ActorInfo가 초기화되어 있지 않아 초기화를 실행합니다."));
+        ASC->InitAbilityActorInfo(this, this);
+    }
+
+    if (!FireballAbilityClass)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[AGASPlayerCharacter::GiveFireballAbility()] : Fireball 어빌리티가 설정되어 있지 않습니다."));
+        return;
+    }
+
+    FGameplayAbilitySpec Spec(FireballAbilityClass, FireballAbilityLevel, FireballInputId);
+    FireballAbilitySpecHandle = ASC->GiveAbility(Spec);
+}
+
 void AGASPlayerCharacter::CastFireball()
 {
-    UE_LOG(LogTemp, Log, TEXT("[AGASPlayerCharacter::CastFireball()] : Hello"));
+    if (!ASC)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[AGASPlayerCharacter::CastFireball()] : ASC가 nullptr입니다."));
+        return;
+    }
+
+    ASC->AbilityLocalInputPressed(FireballInputId);
 }

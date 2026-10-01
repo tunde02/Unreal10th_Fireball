@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Character/GASCharacter.h"
+#include "GameplayAbilitySpecHandle.h"
+#include "GameplayEffectTypes.h"
 #include "GASPlayerCharacter.generated.h"
 
 class UInputMappingContext;
@@ -26,7 +28,7 @@ protected:
     virtual void BeginPlay() override;
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-protected:
+    void GiveFireballAbility();
     void CastFireball();
 
 protected:
@@ -45,16 +47,16 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
     TObjectPtr<UPlayerAttributeSet> PlayerAttribute;
 
-    //UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS|Ability")
-    //TSubclassOf<UGameplayAbility> FireballAbilityClass;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS|Ability")
+    TSubclassOf<UGameplayAbility> FireballAbilityClass;
 
-    //UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS|Ability", meta = (Clamp = "1"))
-    //int32 FireballAbilityLevel = 1;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS|Ability", meta = (Clamp = "1"))
+    int32 FireballAbilityLevel = 1;
 
 private:
-    //UPROPERTY(Transient)
-    //FGameplayAbilitySpecHandle FireballAbilitySpecHandle;
+    UPROPERTY(Transient)
+    FGameplayAbilitySpecHandle FireballAbilitySpecHandle;
 
-    //static constexpr int32 FireballInputId = 100;
+    static constexpr int32 FireballInputId = 100;
 
 };
