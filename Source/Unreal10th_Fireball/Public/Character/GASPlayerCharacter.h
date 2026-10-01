@@ -10,6 +10,7 @@ class UInputMappingContext;
 class UInputAction;
 class USpringArmComponent;
 class UCameraComponent;
+class UPlayerAttributeSet;
 
 UCLASS()
 class UNREAL10TH_FIREBALL_API AGASPlayerCharacter : public AGASCharacter
@@ -18,6 +19,8 @@ class UNREAL10TH_FIREBALL_API AGASPlayerCharacter : public AGASCharacter
 
 public:
     AGASPlayerCharacter();
+
+    UPlayerAttributeSet* GetPlayerAttribute() const { return PlayerAttribute; }
 
 protected:
     virtual void BeginPlay() override;
@@ -39,10 +42,13 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
     TObjectPtr<UCameraComponent> FollowCamera;
 
-    //UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
+    TObjectPtr<UPlayerAttributeSet> PlayerAttribute;
+
+    //UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS|Ability")
     //TSubclassOf<UGameplayAbility> FireballAbilityClass;
 
-    //UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability", meta = (Clamp = "1"))
+    //UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "GAS|Ability", meta = (Clamp = "1"))
     //int32 FireballAbilityLevel = 1;
 
 private:

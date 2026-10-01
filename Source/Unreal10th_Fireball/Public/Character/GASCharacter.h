@@ -22,6 +22,7 @@ protected:
     virtual void PossessedBy(AController* NewController) override;
 
 protected:
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GAS")
     TObjectPtr<UAbilitySystemComponent> ASC;
 
 };

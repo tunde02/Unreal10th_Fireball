@@ -2,6 +2,7 @@
 
 
 #include "Character/GASPlayerCharacter.h"
+#include "GAS/AttributeSet/PlayerAttributeSet.h"
 
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -19,6 +20,8 @@ AGASPlayerCharacter::AGASPlayerCharacter()
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
     FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
     FollowCamera->bUsePawnControlRotation = false;
+
+    PlayerAttribute = CreateDefaultSubobject<UPlayerAttributeSet>(TEXT("Stat"));
 
     bUseControllerRotationYaw = false;
     bUseControllerRotationPitch = false;
